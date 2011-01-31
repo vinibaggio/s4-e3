@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module CounterExamples
-  class BasicReport
+  class BasicAccount
     def initialize(financial_data)
       @financial_data = financial_data.dup
     end
@@ -15,7 +15,7 @@ module CounterExamples
     end
   end
 
-  class ComplexReport < BasicReport
+  class ComplexAccount < BasicAccount
     def highest_debt
       @financial_data.reduce(9999) { |min,data| data < min ? data : min }
     end
@@ -32,30 +32,30 @@ module CounterExamples
   end
 end
 
-module BasicReportSharedTests
+module BasicAccountSharedTests
   def test_calculate_the_balance
     instance = @subject_class.new([-50.0, 40.0, 20.0])
     assert_equal(10, instance.balance)
   end
 
-  # This test will fail for ComplexReport! LSP Violation.
+  # This test will fail for ComplexAccount! LSP Violation.
   def test_build_summary
     instance = @subject_class.new([-50.0, 40.0, 20.0])
     assert_equal("Balance: $10.00", instance.summary)
   end
 end
 
-class BasicReportCounterExampleTest < MiniTest::Unit::TestCase
+class BasicAccountCounterExampleTest < MiniTest::Unit::TestCase
   def setup
-    @subject_class = CounterExamples::BasicReport
+    @subject_class = CounterExamples::BasicAccount
   end
 
-  include BasicReportSharedTests
+  include BasicAccountSharedTests
 end
 
-class ComplexReportCounterExampleTest < MiniTest::Unit::TestCase
+class ComplexAccountCounterExampleTest < MiniTest::Unit::TestCase
   def setup
-    @subject_class = CounterExamples::ComplexReport
+    @subject_class = CounterExamples::ComplexAccount
     @instance = @subject_class.new([-50.0, 40.0, 20.0])
   end
 
@@ -67,5 +67,5 @@ class ComplexReportCounterExampleTest < MiniTest::Unit::TestCase
     assert_equal(40.0, @instance.highest_credit)
   end
 
-  include BasicReportSharedTests
+  include BasicAccountSharedTests
 end

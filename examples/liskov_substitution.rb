@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Examples
-  class BasicReport
+  class BasicAccount
     def initialize(financial_data)
       @financial_data = financial_data.dup
     end
@@ -15,7 +15,7 @@ module Examples
     end
   end
 
-  class ComplexReport < BasicReport
+  class ComplexAccount < BasicAccount
     def highest_debt
       @financial_data.reduce(9999) { |min,data| data < min ? data : min }
     end
@@ -32,7 +32,7 @@ module Examples
   end
 end
 
-module BasicReportSharedTests
+module BasicAccountSharedTests
   def test_calculate_the_balance
     instance = @subject_class.new([-50.0, 40.0, 20.0])
     assert_equal(10, instance.balance)
@@ -44,17 +44,17 @@ module BasicReportSharedTests
   end
 end
 
-class BasicReportTest < MiniTest::Unit::TestCase
+class BasicAccountTest < MiniTest::Unit::TestCase
   def setup
-    @subject_class = Examples::BasicReport
+    @subject_class = Examples::BasicAccount
   end
 
-  include BasicReportSharedTests
+  include BasicAccountSharedTests
 end
 
-class ComplexReportTest < MiniTest::Unit::TestCase
+class ComplexAccountTest < MiniTest::Unit::TestCase
   def setup
-    @subject_class = Examples::ComplexReport
+    @subject_class = Examples::ComplexAccount
     @instance = @subject_class.new([-50.0, 40.0, 20.0])
   end
 
@@ -74,5 +74,5 @@ Highest credit: $40.00
     SUMMARY
   end
 
-  include BasicReportSharedTests
+  include BasicAccountSharedTests
 end
