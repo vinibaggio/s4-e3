@@ -75,8 +75,6 @@ module Examples
 end
 
 class OpenClosedTest < MiniTest::Unit::TestCase
-  include Examples
-
   def test_parse_transactions_from_bank
     receipt = <<-RECEIPT
 Bank receipt
@@ -88,7 +86,7 @@ Bank receipt
  Total:     D  20.00
     RECEIPT
 
-    receipt = BankReceiptParser.new(receipt).parse
+    receipt = Examples::BankReceiptParser.new(receipt).parse
     assert_equal(3                   , receipt.transactions.count)
     assert_equal([50.0, -100.0, 30.0], receipt.transactions)
     assert_equal(-20.0               , receipt.balance)
@@ -105,7 +103,7 @@ Another bank receipt
  Total:     +  40.00
     RECEIPT
 
-    receipt = AnotherBankReceiptParser.new(receipt).parse
+    receipt = Examples::AnotherBankReceiptParser.new(receipt).parse
     assert_equal(3                   , receipt.transactions.count)
     assert_equal([-90.0, 100.0, 30.0], receipt.transactions)
     assert_equal(40.0                , receipt.balance)

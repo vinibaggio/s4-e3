@@ -49,7 +49,6 @@ module Examples
 end
 
 class DependencyInjectionTest < MiniTest::Unit::TestCase
-  include Examples
 
   def teardown
     File.delete('tmp/output.txt')
@@ -57,7 +56,7 @@ class DependencyInjectionTest < MiniTest::Unit::TestCase
   end
 
   def test_print_extract_to_screen
-    bank_account = ATM.new(:transactions => [10, 20, 30])
+    bank_account = Examples::ATM.new(:transactions => [10, 20, 30])
 
     output, err = capture_io do
       bank_account.print_extract
@@ -75,8 +74,8 @@ Total: $60.00
   end
 
   def test_print_extract_to_file
-    bank_account = ATM.new(:transactions => [10, 20, 30],
-                           :printer      => FileExtractPrinter.new)
+    bank_account = Examples::ATM.new(:transactions => [10, 20, 30],
+                                     :printer      => Examples::FileExtractPrinter.new)
 
     bank_account.print_extract
     extract = File.read('tmp/output.txt')

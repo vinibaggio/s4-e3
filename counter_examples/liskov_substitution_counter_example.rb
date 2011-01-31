@@ -49,20 +49,18 @@ module BasicAccountSharedTests
 end
 
 class BasicAccountCounterExampleTest < MiniTest::Unit::TestCase
-  include CounterExamples
   include BasicAccountSharedTests
 
   def subject_class
-    BasicAccount
+    CounterExamples::BasicAccount
   end
 end
 
 class ComplexAccountCounterExampleTest < MiniTest::Unit::TestCase
-  include CounterExamples
   include BasicAccountSharedTests
 
   def subject_class
-    ComplexAccount
+    CounterExamples::ComplexAccount
   end
 
   def test_calculate_the_highest_debt

@@ -67,8 +67,6 @@ module CounterExamples
 end
 
 class OpenClosedCounterExampleTest < MiniTest::Unit::TestCase
-  include CounterExamples
-
   def test_parse_transactions_from_bank
     receipt = <<-RECEIPT
 Bank receipt
@@ -80,7 +78,7 @@ Bank receipt
  Total:     D  80.00
     RECEIPT
 
-    receipt = BankReceiptParser.new(receipt).parse
+    receipt = CounterExamples::BankReceiptParser.new(receipt).parse
     assert_equal(3                   , receipt.transactions.count)
     assert_equal([50.0, -100.0, 30.0], receipt.transactions)
     assert_equal(-20.0               , receipt.balance)

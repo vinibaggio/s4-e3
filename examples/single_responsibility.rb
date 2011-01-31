@@ -35,11 +35,9 @@ module Examples
 end
 
 class SingleResponsibilityCounterExampleTest < MiniTest::Unit::TestCase
-  include Examples
-
   def test_print_extract
-    bank_account = BankAccount.new([10, 20, 30])
-    extract      = BankExtractPrinter.new(bank_account)
+    bank_account = Examples::BankAccount.new([10, 20, 30])
+    extract      = Examples::BankExtractPrinter.new(bank_account)
 
     output, err = capture_io do
       extract.print

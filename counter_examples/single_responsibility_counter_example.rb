@@ -25,10 +25,8 @@ module CounterExamples
 end
 
 class SingleResponsibilityCounterExampleTest < MiniTest::Unit::TestCase
-  include CounterExamples
-
   def test_print_extract
-    extract = BankExtract.new([10, 20, 30])
+    extract = CounterExamples::BankExtract.new([10, 20, 30])
     output, err = capture_io do
       extract.print
     end

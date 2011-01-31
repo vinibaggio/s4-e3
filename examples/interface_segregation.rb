@@ -35,12 +35,10 @@ module Examples
 end
 
 class InterfaceSegregationTest < MiniTest::Unit::TestCase
-  include Examples
-
   def test_report_should_work_with_account
-    account = Account.new(:investment, [1_000, 3_300, -500])
+    account = Examples::Account.new(:investment, [1_000, 3_300, -500])
     out, err = capture_io do
-      report = Report.new(account)
+      report = Examples::Report.new(account)
       report.print
     end
 
@@ -49,7 +47,7 @@ class InterfaceSegregationTest < MiniTest::Unit::TestCase
 
   def test_report_should_work_with_arrays
     out, err = capture_io do
-      report = Report.new([2_000, -3_000])
+      report = Examples::Report.new([2_000, -3_000])
       report.print
     end
 
@@ -58,6 +56,6 @@ class InterfaceSegregationTest < MiniTest::Unit::TestCase
 
   def test_raise_error_if_reduce_isnt_implemented
     object = Object.new
-    assert_raises(ArgumentError) { Report.new(object) }
+    assert_raises(ArgumentError) { Examples::Report.new(object) }
   end
 end
