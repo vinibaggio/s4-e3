@@ -76,7 +76,7 @@ Total: $60.00
 
   def test_print_extract_to_file
     bank_account = ATM.new(:transactions => [10, 20, 30],
-                                   :printer      => FileExtractPrinter.new)
+                           :printer      => FileExtractPrinter.new)
 
     bank_account.print_extract
     extract = File.read('tmp/output.txt')
