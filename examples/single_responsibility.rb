@@ -39,7 +39,7 @@ class SingleResponsibilityCounterExampleTest < MiniTest::Unit::TestCase
 
   def test_print_extract
     bank_account = BankAccount.new([10, 20, 30])
-    extract = BankExtractPrinter.new(bank_account)
+    extract      = BankExtractPrinter.new(bank_account)
 
     output, err = capture_io do
       extract.print
