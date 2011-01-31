@@ -20,7 +20,7 @@ module Examples
         raise ArgumentError, 'Financial data must respond to #reduce'
       end
 
-      @financial_data = financial_data.dup
+      @financial_data = financial_data
     end
 
     def balance

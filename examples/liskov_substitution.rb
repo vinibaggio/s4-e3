@@ -3,7 +3,7 @@ require 'test_helper'
 module Examples
   class BasicAccount
     def initialize(financial_data)
-      @financial_data = financial_data.dup
+      @financial_data = financial_data
     end
 
     def balance
