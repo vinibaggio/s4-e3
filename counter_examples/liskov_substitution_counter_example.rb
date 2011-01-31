@@ -35,15 +35,16 @@ end
 module BasicAccountSharedTests
   TEST_DATA = [-50.0, 40.0, 20.0]
 
-  def test_calculate_the_balance
-    instance = subject_class.new(TEST_DATA)
-    assert_equal(10, instance.balance)
+  def setup
+    @instance = subject_class.new(TEST_DATA)
   end
 
-  # This test will fail for ComplexAccount! LSP Violation.
+  def test_calculate_the_balance
+    assert_equal(10, @instance.balance)
+  end
+
   def test_build_summary
-    instance = subject_class.new(TEST_DATA)
-    assert_equal("Balance: $10.00", instance.summary)
+    assert_equal("Balance: $10.00", @instance.summary)
   end
 end
 
@@ -62,10 +63,6 @@ class ComplexAccountCounterExampleTest < MiniTest::Unit::TestCase
 
   def subject_class
     ComplexAccount
-  end
-
-  def setup
-    @instance = subject_class.new([-50.0, 40.0, 20.0])
   end
 
   def test_calculate_the_highest_debt
