@@ -34,12 +34,12 @@ end
 
 module BasicAccountSharedTests
   def test_calculate_the_balance
-    instance = @subject_class.new([-50.0, 40.0, 20.0])
+    instance = subject_class.new([-50.0, 40.0, 20.0])
     assert_equal(10, instance.balance)
   end
 
   def test_build_summary
-    instance = @subject_class.new([-50.0, 40.0, 20.0])
+    instance = subject_class.new([-50.0, 40.0, 20.0])
     assert_equal("Balance: $10.00", instance.summary)
   end
 end
@@ -48,8 +48,8 @@ class BasicAccountTest < MiniTest::Unit::TestCase
   include Examples
   include BasicAccountSharedTests
 
-  def setup
-    @subject_class = BasicAccount
+  def subject_class
+    BasicAccount
   end
 
 end
@@ -58,9 +58,12 @@ class ComplexAccountTest < MiniTest::Unit::TestCase
   include Examples
   include BasicAccountSharedTests
 
+  def subject_class
+    ComplexAccount
+  end
+
   def setup
-    @subject_class = ComplexAccount
-    @instance = @subject_class.new([-50.0, 40.0, 20.0])
+    @instance = subject_class.new([-50.0, 40.0, 20.0])
   end
 
   def test_calculate_the_highest_debt
