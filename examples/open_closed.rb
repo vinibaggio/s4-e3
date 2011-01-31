@@ -10,7 +10,7 @@ module Examples
     end
 
     def balance
-      @transactions.reduce(0) { |sum,transaction| sum + transaction }
+      @transactions.reduce(:+)
     end
   end
 
@@ -90,7 +90,7 @@ Bank receipt
             D 100.00
             C  30.00
        -------------
- Total:     D  80.00
+ Total:     D  20.00
     RECEIPT
 
     receipt = BankReceiptParser.new(receipt).parse

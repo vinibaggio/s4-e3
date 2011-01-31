@@ -21,7 +21,7 @@ module Examples
 
     def balance
       # calls #each in the back
-      @financial_data.reduce { |sum,data| sum + data }
+      @financial_data.reduce(:+)
     end
 
     def print

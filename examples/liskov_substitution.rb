@@ -7,7 +7,7 @@ module Examples
     end
 
     def balance
-      @financial_data.reduce { |sum,data| sum + data }
+      @financial_data.reduce(:+)
     end
 
     def summary
@@ -17,11 +17,11 @@ module Examples
 
   class ComplexAccount < BasicAccount
     def highest_debt
-      @financial_data.reduce(9999) { |min,data| data < min ? data : min }
+      @financial_data.min
     end
 
     def highest_credit
-      @financial_data.reduce(-9999) { |max,data| data > max ? data : max }
+      @financial_data.max
     end
 
     def complete_summary
