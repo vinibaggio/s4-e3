@@ -46,16 +46,21 @@ module BasicAccountSharedTests
 end
 
 class BasicAccountCounterExampleTest < MiniTest::Unit::TestCase
+  include CounterExamples
+  include BasicAccountSharedTests
+
   def setup
-    @subject_class = CounterExamples::BasicAccount
+    @subject_class = BasicAccount
   end
 
-  include BasicAccountSharedTests
 end
 
 class ComplexAccountCounterExampleTest < MiniTest::Unit::TestCase
+  include CounterExamples
+  include BasicAccountSharedTests
+
   def setup
-    @subject_class = CounterExamples::ComplexAccount
+    @subject_class = ComplexAccount
     @instance = @subject_class.new([-50.0, 40.0, 20.0])
   end
 
@@ -66,6 +71,4 @@ class ComplexAccountCounterExampleTest < MiniTest::Unit::TestCase
   def test_calculate_the_highest_credit
     assert_equal(40.0, @instance.highest_credit)
   end
-
-  include BasicAccountSharedTests
 end

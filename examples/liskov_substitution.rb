@@ -45,16 +45,21 @@ module BasicAccountSharedTests
 end
 
 class BasicAccountTest < MiniTest::Unit::TestCase
+  include Examples
+  include BasicAccountSharedTests
+
   def setup
-    @subject_class = Examples::BasicAccount
+    @subject_class = BasicAccount
   end
 
-  include BasicAccountSharedTests
 end
 
 class ComplexAccountTest < MiniTest::Unit::TestCase
+  include Examples
+  include BasicAccountSharedTests
+
   def setup
-    @subject_class = Examples::ComplexAccount
+    @subject_class = ComplexAccount
     @instance = @subject_class.new([-50.0, 40.0, 20.0])
   end
 
@@ -73,6 +78,4 @@ Highest debt: $-50.00
 Highest credit: $40.00
     SUMMARY
   end
-
-  include BasicAccountSharedTests
 end
