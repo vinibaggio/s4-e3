@@ -1,6 +1,6 @@
 require 'test_helper'
 
-module Examples
+module CounterExamples
 
   class BankReceipt
     attr_reader :transactions
@@ -59,23 +59,15 @@ module Examples
     end
   end
 
-  # Example:
-  #
-  # Another bank receipt
-  # ====================
-  #             +  50.00
-  #             - 100.00
-  #             +  30.00
-  #        -------------
-  #  Total:     -  20.00
-  class AnotherBankReceiptParser < BankReceiptParser
+  # Ruby's open classes make it easy to violate OCP!
+  class BankReceiptParser
     def debt_symbol;   '-'; end
     def credit_symbol; '+'; end
   end
 end
 
-class OpenClosedTest < MiniTest::Unit::TestCase
-  include Examples
+class OpenClosedCounterExampleTest < MiniTest::Unit::TestCase
+  include CounterExamples
 
   def test_parse_transactions_from_bank
     receipt = <<-RECEIPT
@@ -85,7 +77,7 @@ Bank receipt
             D 100.00
             C  30.00
        -------------
- Total:     D  20.00
+ Total:     D  80.00
     RECEIPT
 
     receipt = BankReceiptParser.new(receipt).parse
@@ -93,23 +85,6 @@ Bank receipt
     assert_equal([50.0, -100.0, 30.0], receipt.transactions)
     assert_equal(-20.0               , receipt.balance)
   end
-
-  def test_parse_transactions_from_another_bank
-    receipt = <<-RECEIPT
-Another bank receipt
-====================
-            -  90.00
-            + 100.00
-            +  30.00
-       -------------
- Total:     +  40.00
-    RECEIPT
-
-    receipt = AnotherBankReceiptParser.new(receipt).parse
-    assert_equal(3                   , receipt.transactions.count)
-    assert_equal([-90.0, 100.0, 30.0], receipt.transactions)
-    assert_equal(40.0                , receipt.balance)
-
-  end
 end
+
 
