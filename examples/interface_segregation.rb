@@ -16,6 +16,10 @@ module Examples
 
   class Report
     def initialize(financial_data)
+      unless financial_data.respond_to?(:reduce)
+        raise ArgumentError, 'Financial data must respond to #reduce'
+      end
+
       @financial_data = financial_data.dup
     end
 
@@ -50,5 +54,10 @@ class InterfaceSegregationTest < MiniTest::Unit::TestCase
     end
 
     assert_equal "Balance: $-1000.00\n", out
+  end
+
+  def test_raise_error_if_reduce_isnt_implemented
+    object = Object.new
+    assert_raises(ArgumentError) { Report.new(object) }
   end
 end
