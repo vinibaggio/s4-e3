@@ -20,8 +20,8 @@ module Examples
     end
   end
 
-  class ScreenExtractPrinter
-    def print(transactions, balance)
+  class BasePrinter
+    def output(transactions, balance)
       output  = "Bank extract\n"
       output += "#{'=' * 30}\n"
       transactions.each do |transaction|
@@ -30,23 +30,19 @@ module Examples
       end
       output += "#{'-' * 30}\n"
       output += "Total: $%.2f" % balance
-      puts output
     end
   end
 
-  class FileExtractPrinter
+  class ScreenExtractPrinter < BasePrinter
     def print(transactions, balance)
-      output  = "Bank extract\n"
-      output += "#{'=' * 30}\n"
-      transactions.each do |transaction|
-        spaces = " " * (25 - transaction.to_s.length)
-        output += "#{spaces} $%.2f\n" % transaction
-      end
-      output += "#{'-' * 30}\n"
-      output += "Total: $%.2f" % balance
+      puts output(transactions, balance)
+    end
+  end
 
+  class FileExtractPrinter < BasePrinter
+    def print(transactions, balance)
       File.open('tmp/output.txt', 'w') do |file|
-        file.puts output
+        file.puts output(transactions, balance)
       end
     end
   end
